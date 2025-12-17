@@ -1,0 +1,5 @@
+why we use window.requestanimationFrame
+
+https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout
+
+inspect in console to highScore set 0 to write method in console...    localStorage.clear()
