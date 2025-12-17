@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
   background:
     linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-    url("./bg.webp"); /* 🔁 change image name here */
+    url("./bg-image.jpg"); /* 🔁 change image name here */
   background-size: cover;
   background-position: center;
   display: flex;
