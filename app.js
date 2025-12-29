@@ -211,6 +211,44 @@ document.getElementById("pauseBtn").addEventListener("click", () => {
   backgroundMusicSound[isPaused ? "pause" : "play"]();
 });
 
+// mobile code
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", (e) => {
+  let touchEndX = e.changedTouches[0].clientX;
+  let touchEndY = e.changedTouches[0].clientY;
+
+  let diffX = touchEndX - touchStartX;
+  let diffY = touchEndY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // LEFT / RIGHT
+    if (diffX > 0) {
+      inputDir = { x: 1, y: 0 }; // right
+    } else {
+      inputDir = { x: -1, y: 0 }; // left
+    }
+  } else {
+    // UP / DOWN
+    if (diffY > 0) {
+      inputDir = { x: 0, y: 1 }; // down
+    } else {
+      inputDir = { x: 0, y: -1 }; // up
+    }
+  }
+
+  moveSound.play();
+  backgroundMusicSound.play();
+});
+
+
 
 
 
