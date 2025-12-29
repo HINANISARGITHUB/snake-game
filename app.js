@@ -217,11 +217,18 @@ let touchStartX = 0;
 let touchStartY = 0;
 
 document.addEventListener("touchstart", (e) => {
+  e.preventDefault();
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
-});
+}, { passive: false });
+
+document.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+}, { passive: false });
 
 document.addEventListener("touchend", (e) => {
+  e.preventDefault();
+
   let touchEndX = e.changedTouches[0].clientX;
   let touchEndY = e.changedTouches[0].clientY;
 
@@ -229,26 +236,12 @@ document.addEventListener("touchend", (e) => {
   let diffY = touchEndY - touchStartY;
 
   if (Math.abs(diffX) > Math.abs(diffY)) {
-    // LEFT / RIGHT
-    if (diffX > 0) {
-      inputDir = { x: 1, y: 0 }; // right
-    } else {
-      inputDir = { x: -1, y: 0 }; // left
-    }
+    inputDir = diffX > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
   } else {
-    // UP / DOWN
-    if (diffY > 0) {
-      inputDir = { x: 0, y: 1 }; // down
-    } else {
-      inputDir = { x: 0, y: -1 }; // up
-    }
+    inputDir = diffY > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
   }
 
   moveSound.play();
   backgroundMusicSound.play();
-});
-
-
-
-
+}, { passive: false });
 
