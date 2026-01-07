@@ -214,3 +214,82 @@ document.getElementById("pauseBtn").addEventListener("click", () => {
 
 
 
+// mobile screen code
+// let touchStartX = 0;
+// let touchStartY = 0;
+
+// document.addEventListener("touchstart", (e) => {
+//   e.preventDefault();
+//   touchStartX = e.touches[0].clientX;
+//   touchStartY = e.touches[0].clientY;
+// }, { passive: false });
+
+// document.addEventListener("touchmove", (e) => {
+//   e.preventDefault();
+// }, { passive: false });
+
+// document.addEventListener("touchend", (e) => {
+//   e.preventDefault();
+
+//   let touchEndX = e.changedTouches[0].clientX;
+//   let touchEndY = e.changedTouches[0].clientY;
+
+//   let diffX = touchEndX - touchStartX;
+//   let diffY = touchEndY - touchStartY;
+
+//   if (Math.abs(diffX) > Math.abs(diffY)) {
+//     inputDir = diffX > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+//   } else {
+//     inputDir = diffY > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+//   }
+
+//   moveSound.play();
+//   backgroundMusicSound.play();
+// }, { passive: false });
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+let gameRunning = true;   // 👈 new variable
+
+document.addEventListener("touchstart", (e) => {
+
+  // 2 fingers → PAUSE
+  if (e.touches.length === 2) {
+    gameRunning = false;
+    backgroundMusicSound.pause();
+    console.log("Game Paused");
+    return;
+  }
+
+  // 1 finger → RESUME
+  gameRunning = true;
+  backgroundMusicSound.play();
+
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+
+}, { passive: false });
+
+document.addEventListener("touchmove", (e) => {
+  if (!gameRunning) return; // 👈 stop movement
+  e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("touchend", (e) => {
+  if (!gameRunning) return; // 👈 no move when paused
+
+  let touchEndX = e.changedTouches[0].clientX;
+  let touchEndY = e.changedTouches[0].clientY;
+
+  let diffX = touchEndX - touchStartX;
+  let diffY = touchEndY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    inputDir = diffX > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+  } else {
+    inputDir = diffY > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+  }
+
+  moveSound.play();
+}, { passive: false });

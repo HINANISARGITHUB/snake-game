@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;   /* stop scrolling */
+  touch-action: none; /* stop swipe scroll */
+}
+
+
 body {
   min-height: 100vh;
   background:
