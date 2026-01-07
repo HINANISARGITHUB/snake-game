@@ -216,34 +216,16 @@ document.getElementById("pauseBtn").addEventListener("click", () => {
 let touchStartX = 0;
 let touchStartY = 0;
 
-let gameRunning = true;   // 👈 new variable
-
 document.addEventListener("touchstart", (e) => {
-
-  // 2 fingers → PAUSE
-  if (e.touches.length === 2) {
-    gameRunning = false;
-    backgroundMusicSound.pause();
-    console.log("Game Paused");
-    return;
-  }
-
-  // 1 finger → RESUME
-  gameRunning = true;
-  backgroundMusicSound.play();
-
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
-
-}, { passive: false });
+}, { passive: true });
 
 document.addEventListener("touchmove", (e) => {
-  if (!gameRunning) return; // 👈 stop movement
   e.preventDefault();
 }, { passive: false });
 
 document.addEventListener("touchend", (e) => {
-  if (!gameRunning) return; // 👈 no move when paused
 
   let touchEndX = e.changedTouches[0].clientX;
   let touchEndY = e.changedTouches[0].clientY;
@@ -258,4 +240,4 @@ document.addEventListener("touchend", (e) => {
   }
 
   moveSound.play();
-}, { passive: false });
+}, { passive: true });
